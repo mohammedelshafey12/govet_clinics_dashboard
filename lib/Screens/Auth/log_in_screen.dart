@@ -1,11 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:govet_clinics_dashboard/Screens/Auth/sign_up_screen.dart';
+import 'package:govet_clinics_dashboard/Widgets/log_in_custom_text_form_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({Key? key}) : super(key: key);
+import '../../constants.dart';
+
+class LogInScreen extends StatefulWidget {
+  LogInScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  bool visibleText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -14,44 +30,206 @@ class LogInScreen extends StatelessWidget {
     return ModalProgressHUD(
       inAsyncCall: Provider.of<ModelHud>(context).isLoading,
       child: Scaffold(
-        appBar: AppBar(),
         body: Center(
           child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              border: Border.all(color: Colors.black),
-            ),
             width: width * 0.7,
             height: height * 0.7,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                Row(
+            child: Card(
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.white,
+              child: Form(
+                key: formKey,
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('If you don\'t have an account'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: height,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15.0),
+                                  bottomLeft: Radius.circular(15.0),
+                                ),
+                                child: Image.asset(
+                                  Constants.logInPhoto,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                          Expanded(
+                            child: ListView(
+                             padding: const EdgeInsets.all(20.0),children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sign In',
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'custom_font_bold',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.02,
+                                  ),
+                                  Text(
+                                    'Please fill below the required data to log in Dashboard',
+                                    style: TextStyle(
+                                      color: Colors.grey[400],
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13.0,
+                                      fontFamily: 'custom_font',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.05,
+                                  ),
+                                  TextFormField(
+                                    controller: emailController,
+                                    obscureText: false,
+                                    keyboardType:
+                                    TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.isEmpty) {
+                                        return 'Email must be not empty';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'Email ...',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      prefixIcon: Icon(Icons.email),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.03,
+                                  ),
+                                  TextFormField(
+                                    controller: passwordController,
+                                    obscureText: visibleText,
+                                    keyboardType:
+                                    TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.isEmpty) {
+                                        return 'password must be not empty';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'Password ...',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      prefixIcon: Icon(Icons.lock),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            visibleText = !visibleText;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          visibleText
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.03,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        10.0,
+                                      ),
+                                      border: Border.all(
+                                        color: Colors.blue,
+                                      ),
+                                      color: Colors.blue,
+                                    ),
+                                    width: width,
+                                    height: 50.0,
+                                    child: MaterialButton(
+                                      height: 50.0,
+                                      child: Text(
+                                        'Sign In',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          letterSpacing: 0.5,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onPressed: (){
+                                        if (formKey.currentState!.validate()) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Processing Data')));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.05,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'If you don\'t have an account',
+                                      style: TextStyle(
+                                        fontFamily: 'custom_font',
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignUpScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Sign Up',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'custom_font_bold',
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                            ),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

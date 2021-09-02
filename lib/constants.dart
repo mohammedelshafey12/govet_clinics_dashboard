@@ -25,6 +25,7 @@ class Constants {
   static const String clinicLocation = 'ClinicLocation';
 
 
-
+  /// photo url
+  static const String logInPhoto = 'images/log_in_photo.jpg';
 
 }
