@@ -1,23 +1,23 @@
 class ClinicMode {
   final String? clinicId;
   final String? clinicName;
-  final String? clinicType;
-  final String? clinicAbout;
+  final String? clinicEmail;
   final String? clinicPhone;
+  final String? clinicType;
   final String? clinicPrice;
+  final String? clinicAbout;
   final String? clinicExperience;
-  final double? clinicRating;
   final String? clinicLocation;
 
   ClinicMode({
     required this.clinicId,
     required this.clinicName,
-    required this.clinicType,
-    required this.clinicAbout,
+    required this.clinicEmail,
     required this.clinicPhone,
+    required this.clinicType,
     required this.clinicPrice,
+    required this.clinicAbout,
     required this.clinicExperience,
-    required this.clinicRating,
     required this.clinicLocation,
   });
 }

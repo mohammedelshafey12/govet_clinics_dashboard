@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:govet_clinics_dashboard/Screens/Auth/sign_up_screen.dart';
-import 'package:govet_clinics_dashboard/Widgets/log_in_custom_text_form_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -121,7 +120,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     controller: passwordController,
                                     obscureText: visibleText,
                                     keyboardType:
-                                    TextInputType.emailAddress,
+                                    TextInputType.visiblePassword,
                                     validator: (value) {
                                       if (value == null ||
                                           value.isEmpty) {

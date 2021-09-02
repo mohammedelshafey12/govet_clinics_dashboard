@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:provider/provider.dart';
 
+import 'Screens/Auth/sign_up_screen.dart';
 import 'Screens/Home/splash_screen.dart';
 
 void main() async {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'GoVet Clinics Dashboard',
-        home: SplashScreen(),
+        home: SignUpScreen(),
       ),
     );
   }

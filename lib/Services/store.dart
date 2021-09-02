@@ -12,12 +12,11 @@ class Store {
   addClinic(ClinicMode clinic) {
     fireStore.collection(Constants.clinicCollection).doc(clinic.clinicId).set({
       Constants.clinicId: clinic.clinicId,
-      Constants.clinicName: clinic.clinicName,
+      Constants.clinicName: clinic.clinicEmail,
       Constants.clinicType: clinic.clinicType,
       Constants.clinicAbout: clinic.clinicAbout,
       Constants.clinicPhone: clinic.clinicPhone,
       Constants.clinicPrice: clinic.clinicPrice,
-      Constants.clinicRating: clinic.clinicRating,
       Constants.clinicLocation: clinic.clinicLocation,
       Constants.clinicExperience: clinic.clinicExperience,
     });
