@@ -1,4 +1,4 @@
-class ClinicMode {
+class ClinicModel {
   final String? clinicId;
   final String? clinicName;
   final String? clinicEmail;
@@ -9,7 +9,7 @@ class ClinicMode {
   final String? clinicExperience;
   final String? clinicLocation;
 
-  ClinicMode({
+  ClinicModel({
     required this.clinicId,
     required this.clinicName,
     required this.clinicEmail,

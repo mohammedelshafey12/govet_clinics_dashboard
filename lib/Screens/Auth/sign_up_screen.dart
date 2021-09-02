@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:govet_clinics_dashboard/Models/clinic_model.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:govet_clinics_dashboard/Screens/Auth/log_in_screen.dart';
+import 'package:govet_clinics_dashboard/Services/auth.dart';
+import 'package:govet_clinics_dashboard/Services/store.dart';
 import 'package:govet_clinics_dashboard/Widgets/sign_up_custom_text_form_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +39,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var formKey = GlobalKey<FormState>();
 
   bool visibleText = true;
+  Auth _auth = Auth();
+  Store _store = Store();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               color: Colors.white,
               child: Form(
+                key: formKey,
                 child: Column(
                   children: [
                     Expanded(
@@ -116,10 +124,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       controller: clinicPasswordController,
                                       obscureText: visibleText,
                                       keyboardType:
-                                      TextInputType.visiblePassword,
+                                          TextInputType.visiblePassword,
                                       validator: (value) {
-                                        if (value == null ||
-                                            value.isEmpty) {
+                                        if (value == null || value.isEmpty) {
                                           return 'Password Required';
                                         }
                                         return null;
@@ -128,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         hintText: 'Password ...',
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(10.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         prefixIcon: Icon(Icons.lock),
                                         suffixIcon: IconButton(
@@ -224,7 +231,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       decoration: InputDecoration(
                                         hintText: 'Click to Pic your Location',
                                         border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                     ),
@@ -261,10 +269,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: (){
+                        onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+                            final modelHud = Provider.of<ModelHud>(
+                              context,
+                              listen: false,
+                            );
+                            modelHud.isProgressLoading(true);
+                            try {
+                              final authResult =
+                                  await _auth.signUpWithEmailAndPassword(
+                                clinicEmailController.text,
+                                clinicPasswordController.text,
+                                context,
+                              );
+                              modelHud.isProgressLoading(false);
+                              User? userAuth = await FirebaseAuth.instance.currentUser!;
+                              _store.addClinic(
+                                ClinicModel(
+                                  clinicId: userAuth.uid,
+                                  clinicEmail: userAuth.email,
+                                  clinicName: clinicNameController.text,
+                                  clinicPhone: clinicPhoneController.text,
+                                  clinicType: clinicTypeController.text,
+                                  clinicAbout: clinicAboutController.text,
+                                  clinicExperience:
+                                      clinicExperienceController.text,
+                                  clinicLocation: clinicLocationController.text,
+                                  clinicPrice: clinicPriceController.text,
+                                ),
+                              );
+                            } on PlatformException catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    e.message.toString(),
+                                    style: TextStyle(fontFamily: 'custom_font'),
+                                  ),
+                                ),
+                              );
+                              modelHud.isProgressLoading(false);
+                            }
+                            modelHud.isProgressLoading(false);
                           }
                         },
                       ),
@@ -288,8 +334,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    LogInScreen(),
+                                builder: (context) => LogInScreen(),
                               ),
                             );
                           },

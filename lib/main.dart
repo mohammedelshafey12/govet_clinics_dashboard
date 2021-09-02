@@ -4,6 +4,7 @@ import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:provider/provider.dart';
 
 import 'Screens/Auth/sign_up_screen.dart';
+import 'Screens/Home/home_screen.dart';
 import 'Screens/Home/splash_screen.dart';
 
 void main() async {
@@ -26,7 +27,19 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'GoVet Clinics Dashboard',
-        home: SignUpScreen(),
+        home: SplashScreen(),
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'custom_font_bold',
+              fontSize: 20.0,
+              letterSpacing: 0.3,
+            ),
+            color: Colors.white,
+            centerTitle: true,
+          )
+        ),
       ),
     );
   }

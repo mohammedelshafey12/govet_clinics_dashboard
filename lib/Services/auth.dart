@@ -13,7 +13,7 @@ class Auth {
           email: email,
           password: password
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
       return userCredential;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -42,7 +42,7 @@ class Auth {
           email: email,
           password: password
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
       return null;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
