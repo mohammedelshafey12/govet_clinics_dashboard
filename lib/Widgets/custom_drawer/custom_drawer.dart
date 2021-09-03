@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:govet_clinics_dashboard/Screens/Clinic_Profile/clinic_profile_screen.dart';
 import 'package:govet_clinics_dashboard/Screens/old_reservation/old_reservation_screen.dart';
 import 'package:govet_clinics_dashboard/Screens/verify_reservation/verify_reservation_screen.dart';
 import 'package:govet_clinics_dashboard/Widgets/custom_drawer/custom_drawer_header.dart';
@@ -17,6 +18,18 @@ class CustomDrawer extends StatelessWidget {
           CustomDrawerHeader(
             clinicName: 'San Clinic',
             clinicType: 'Animale Clinic',
+          ),
+          CustomDrawerItem(
+            icon: Icons.person,
+            itemTitle: 'Clinic Profile',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClinicProfileScreen(),
+                ),
+              );
+            },
           ),
           CustomDrawerItem(
             icon: Icons.mobile_friendly,
