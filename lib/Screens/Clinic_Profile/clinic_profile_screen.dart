@@ -189,8 +189,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
     //   source: ImageSource.gallery,
     // );
     setState(() {
-      // _image = File(image.path);
-      _image = fromPicker;
+      _image = File(fromPicker.path);
     });
   }
 
