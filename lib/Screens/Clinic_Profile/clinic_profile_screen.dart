@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -224,7 +226,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
           );
         },
       );
-      TaskSnapshot uploadedFile = await refFeedBucket.putFile(_image);
+      var uploadedFile = await refFeedBucket.putFile(_image!);
       if (uploadedFile.state == TaskState.success) {
         downloadUrl = await refFeedBucket.getDownloadURL();
         Provider.of<ModelHud>(context, listen: false).isProgressLoading(false);
