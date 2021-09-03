@@ -24,6 +24,7 @@ class Constants {
   static const String clinicExperience = 'ClinicExperience';
   static const String clinicRating = 'ClinicRating';
   static const String clinicLocation = 'ClinicLocation';
+  static const String clinicImageUrl = 'ClinicImageUrl';
 
 
   /// photo url

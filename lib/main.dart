@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'GoVet Clinics Dashboard',
-        home: SplashScreen(),
+        home: SignUpScreen(),
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(

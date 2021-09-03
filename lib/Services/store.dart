@@ -14,13 +14,15 @@ class Store {
   addClinic(ClinicModel clinic) {
     fireStore.collection(Constants.clinicCollection).doc(clinic.clinicId).set({
       Constants.clinicId: clinic.clinicId,
-      Constants.clinicName: clinic.clinicEmail,
+      Constants.clinicName: clinic.clinicName,
+      Constants.clinicEmail: clinic.clinicEmail,
       Constants.clinicType: clinic.clinicType,
       Constants.clinicAbout: clinic.clinicAbout,
       Constants.clinicPhone: clinic.clinicPhone,
       Constants.clinicPrice: clinic.clinicPrice,
       Constants.clinicLocation: clinic.clinicLocation,
       Constants.clinicExperience: clinic.clinicExperience,
+      Constants.clinicImageUrl: clinic.clinicImageUrl,
     });
   }
 }

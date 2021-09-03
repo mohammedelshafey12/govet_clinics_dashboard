@@ -8,6 +8,7 @@ class ClinicModel {
   final String? clinicAbout;
   final String? clinicExperience;
   final String? clinicLocation;
+  final String? clinicImageUrl;
 
   ClinicModel({
     required this.clinicId,
@@ -19,5 +20,6 @@ class ClinicModel {
     required this.clinicAbout,
     required this.clinicExperience,
     required this.clinicLocation,
+    required this.clinicImageUrl,
   });
 }
