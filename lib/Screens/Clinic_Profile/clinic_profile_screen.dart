@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:govet_clinics_dashboard/Screens/Clinic_Profile/clinic_profile_card_item.dart';
 import 'package:govet_clinics_dashboard/Widgets/loading_page.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +26,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
   var _image;
   String? clinicUrlImage;
   String uid = "";
-  String userEmail = "";
+  String usgerEmail = "";
 
   void initState() {
     // TODO: implement initState
@@ -181,18 +183,31 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
   }
 
   _imgFromGallery() async {
-    var fromPicker;
-    fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.widget);
+    Uint8List? fromPicker;
+    fromPicker = (await ImagePickerWeb.getImage(outputType: ImageType.bytes)) as Uint8List?;
 
     // var image;
     // image = await ImagePicker().getImage(
     //   source: ImageSource.gallery,
     // );
+
     setState(() {
-      _image = File(fromPicker.path);
+      _image = fromPicker;
     });
   }
-
+  //
+  // Future<void> _getImage() async {
+  //   final PickedFile? pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+  //   setState(() {
+  //     if (pickedFile != null) {
+  //       print(pickedFile.);
+  //        // _image = File(pickedFile.path);
+  //
+  //     } else {
+  //       print("No image selected");
+  //     }
+  //   });
+  // }
   String downloadUrl = '';
 
 
@@ -225,13 +240,14 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
           );
         },
       );
-      var uploadedFile = await refFeedBucket.putFile(_image!);
+      var uploadedFile = await refFeedBucket.putData(_image);
+
       if (uploadedFile.state == TaskState.success) {
         downloadUrl = await refFeedBucket.getDownloadURL();
         Provider.of<ModelHud>(context, listen: false).isProgressLoading(false);
         FirebaseFirestore.instance
           ..collection(Constants.clinicCollection).doc(userAuth.uid).update({
-            Constants.userImageUrl: downloadUrl,
+            Constants.clinicImageUrl: downloadUrl,
           }).whenComplete(() {
             Navigator.pop(context);
           });
