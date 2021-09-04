@@ -26,7 +26,6 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
   var _image;
   String? clinicUrlImage;
   String uid = "";
-  String usgerEmail = "";
 
   void initState() {
     // TODO: implement initState
@@ -208,7 +207,6 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
   //     }
   //   });
   // }
-  String downloadUrl = '';
 
 
   Future uploadFile() async {
@@ -219,7 +217,6 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
       Reference refFeedBucket = feedStorage
           .ref()
           .child(userAuth!.uid);
-      String downloadUrl = '';
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -243,6 +240,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
       var uploadedFile = await refFeedBucket.putData(_image);
 
       if (uploadedFile.state == TaskState.success) {
+        String downloadUrl = '';
         downloadUrl = await refFeedBucket.getDownloadURL();
         Provider.of<ModelHud>(context, listen: false).isProgressLoading(false);
         FirebaseFirestore.instance

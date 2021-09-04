@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
-import 'package:govet_clinics_dashboard/Screens/Home/home_screen.dart';
 import 'package:govet_clinics_dashboard/Screens/Home/splash_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'Screens/Auth/sign_up_screen.dart';
-import 'Screens/Clinic_Profile/clinic_profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

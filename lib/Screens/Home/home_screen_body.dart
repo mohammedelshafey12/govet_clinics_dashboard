@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:govet_clinics_dashboard/Screens/old_reservation/old_reservation_screen.dart';
 import 'package:govet_clinics_dashboard/Screens/verify_reservation/verify_reservation_screen.dart';
+import 'package:govet_clinics_dashboard/constants.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({Key? key}) : super(key: key);
@@ -20,11 +21,9 @@ class HomeScreenBody extends StatelessWidget {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VerifyReservationScreen(),
-                      ),
+                    Constants.navigatorPush(
+                      context: context,
+                      screen: VerifyReservationScreen(),
                     );
                   },
                   borderRadius: BorderRadius.circular(10.0),
@@ -62,11 +61,9 @@ class HomeScreenBody extends StatelessWidget {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OldReservationScreen(),
-                      ),
+                    Constants.navigatorPush(
+                      context: context,
+                      screen: OldReservationScreen(),
                     );
                   },
                   borderRadius: BorderRadius.circular(10.0),

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
 class Constants {
 
   ///firebase Collection Users
@@ -29,5 +32,16 @@ class Constants {
 
   /// photo url
   static const String logInPhoto = 'images/log_in_photo.jpg';
+
+  /// method navigate page
+  static void navigatorPush({context, screen}) {
+    Navigator.push(
+      context,
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: screen,
+      ),
+    );
+  }
 
 }

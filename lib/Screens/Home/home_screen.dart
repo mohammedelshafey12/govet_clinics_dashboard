@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:govet_clinics_dashboard/Widgets/custom_drawer/custom_drawer.dart';
 
+import '../../constants.dart';
 import 'home_screen_body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String uid = "";
-  String userEmail = "";
-  String userImageUrl = '';
 
   void initState() {
     // TODO: implement initState
@@ -37,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: HomeScreenBody(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(
+        clinicId: uid,
+      ),
     );
   }
 }
