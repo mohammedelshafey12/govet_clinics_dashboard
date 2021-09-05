@@ -32,7 +32,7 @@ class _LogInScreenState extends State<LogInScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return ModalProgressHUD(
-      inAsyncCall: Provider.of<ModelHud>(context).isLoading,
+      inAsyncCall: Provider.of<ModelHud>(context).isLoading1,
       child: Scaffold(
         body: Center(
           child: Container(
@@ -192,8 +192,6 @@ class _LogInScreenState extends State<LogInScreen> {
                                                 context,);
 
                                             modelHud.isProgressLoading(false);
-                                            User? userAuth = FirebaseAuth.instance.currentUser;
-                                            // print(auth1.currentUser!.uid);
                                           } on PlatformException catch (e) {
                                             Scaffold.of(context).showSnackBar(SnackBar(
                                               content: Text(
