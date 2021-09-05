@@ -25,4 +25,12 @@ class Store {
       Constants.clinicImageUrl: clinic.clinicImageUrl,
     });
   }
+
+  verifyClinicReservation(docId) {
+    fireStore.collection(Constants.clinicReservationCollection).doc(docId).update({
+      Constants.clinicReservationVerify: true,
+    }).whenComplete(() {
+      print ('Done');
+    });
+  }
 }
