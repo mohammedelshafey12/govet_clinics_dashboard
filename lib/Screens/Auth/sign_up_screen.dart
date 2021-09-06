@@ -1,9 +1,11 @@
+import 'dart:html';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:govet_clinics_dashboard/Models/clinic_model.dart';
 import 'package:govet_clinics_dashboard/Provider/model_hud.dart';
 import 'package:govet_clinics_dashboard/Screens/Auth/log_in_screen.dart';
@@ -42,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool visibleText = true;
   Auth _auth = Auth();
   Store _store = Store();
-
+  GeoPoint? location;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -221,20 +223,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     SizedBox(
                                       height: height * 0.02,
                                     ),
-                                    TextFormField(
-                                      controller: clinicLocationController,
-                                      keyboardType: TextInputType.text,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Location Required';
+                                    InkWell(
+                                      onTap: () async {
+                                        LocationPermission permission =
+                                            await Geolocator.checkPermission();
+                                        if (permission ==
+                                            LocationPermission.denied) {
+                                          permission = await Geolocator
+                                              .requestPermission();
+                                          if (permission ==
+                                              LocationPermission.denied) {
+                                            // Permissions are denied, next time you could try
+                                            // requesting permissions again (this is also where
+                                            // Android's shouldShowRequestPermissionRationale
+                                            // returned true. According to Android guidelines
+                                            // your App should show an explanatory UI now.
+                                            return Future.error(
+                                                'Location permissions are denied');
+                                          }
                                         }
-                                        return null;
+
+                                        if (permission ==
+                                            LocationPermission.deniedForever) {
+                                          // Permissions are denied forever, handle appropriately.
+                                          return Future.error(
+                                              'Location permissions are permanently denied, we cannot request permissions.');
+                                        }
+
+                                        // When we reach here, permissions are granted and we can
+                                        // continue accessing the position of the device.
+                                        var location2 = await Geolocator
+                                            .getCurrentPosition();
+                                        print(location2.longitude);
+                                        print(location2.latitude);
+                                        setState(() {
+                                          location = GeoPoint(
+                                              location2.latitude,
+                                              location2.longitude);
+                                        });
                                       },
-                                      decoration: InputDecoration(
-                                        hintText: 'Click to Pic your Location',
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
+                                      child: TextFormField(
+                                        enabled: false,
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          hintText:
+                                              'Click to Pic your Location',
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -267,52 +304,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             onPressed: () async {
-                              if (formKey.currentState!.validate()) {
-                                final modelHud = Provider.of<ModelHud>(
-                                  context,
-                                  listen: false,
-                                );
-                                modelHud.isProgressLoading(true);
-                                try {
-                                  final authResult =
-                                      await _auth.signUpWithEmailAndPassword(
-                                    clinicEmailController.text,
-                                    clinicPasswordController.text,
+                                if (formKey.currentState!.validate()) {
+                                  final modelHud = Provider.of<ModelHud>(
                                     context,
+                                    listen: false,
                                   );
-                                  User? userAuth =
-                                      FirebaseAuth.instance.currentUser!;
-                                  _store.addClinic(
-                                    ClinicModel(
-                                      clinicId: userAuth.uid,
-                                      clinicEmail: userAuth.email,
-                                      clinicName: clinicNameController.text,
-                                      clinicPhone: clinicPhoneController.text,
-                                      clinicType: clinicTypeController.text,
-                                      clinicAbout: clinicAboutController.text,
-                                      clinicExperience:
-                                          clinicExperienceController.text,
-                                      clinicLocation:
-                                          clinicLocationController.text,
-                                      clinicPrice: clinicPriceController.text,
-                                      clinicImageUrl: null,
-                                    ),
-                                  );
-                                  modelHud.isProgressLoading(false);
-                                } on PlatformException catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        e.message.toString(),
-                                        style: TextStyle(
-                                            fontFamily: 'custom_font'),
+                                  modelHud.isProgressLoading(true);
+                                  try {
+                                    final authResult =
+                                        await _auth.signUpWithEmailAndPassword(
+                                      clinicEmailController.text,
+                                      clinicPasswordController.text,
+                                      context,
+                                    );
+                                    User? userAuth =
+                                        FirebaseAuth.instance.currentUser!;
+                                    _store.addClinic(
+                                      ClinicModel(
+                                        clinicId: userAuth.uid,
+                                        clinicEmail: userAuth.email,
+                                        clinicName: clinicNameController.text,
+                                        clinicPhone: clinicPhoneController.text,
+                                        clinicType: clinicTypeController.text,
+                                        clinicAbout: clinicAboutController.text,
+                                        clinicExperience:
+                                        clinicExperienceController.text,
+                                        clinicLocation: location??null,
+                                        clinicPrice: clinicPriceController.text,
+                                        clinicImageUrl: null,
                                       ),
-                                    ),
-                                  );
-                                  modelHud.isProgressLoading(false);
+                                    );
+                                    modelHud.isProgressLoading(false);
+                                  } on PlatformException catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          e.message.toString(),
+                                          style: TextStyle(
+                                              fontFamily: 'custom_font'),
+                                        ),
+                                      ),
+                                    );
+                                    modelHud.isProgressLoading(false);
+                                  }
                                 }
                               }
-                            },
                           ),
                         ),
                         SizedBox(

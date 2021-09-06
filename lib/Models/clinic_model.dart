@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ClinicModel {
   final String? clinicId;
   final String? clinicName;
@@ -7,7 +9,7 @@ class ClinicModel {
   final String? clinicPrice;
   final String? clinicAbout;
   final String? clinicExperience;
-  final String? clinicLocation;
+  final GeoPoint? clinicLocation;
   final String? clinicImageUrl;
 
   ClinicModel({

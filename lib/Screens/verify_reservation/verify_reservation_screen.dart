@@ -175,8 +175,34 @@ class _VerifyReservationScreenState extends State<VerifyReservationScreen> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      var docId= snapshot.data!.docs[index].reference.id;
-                                      _store.verifyClinicReservation(docId);
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) => AlertDialog(
+                                          content: Text("Are you sure to approve?"),
+                                          actions: [
+                                            RaisedButton(
+                                              color: Colors.green,
+                                              child: Center(
+                                                child: Text("Yes"),
+                                              ),
+                                              onPressed: () {
+                                                var docId= snapshot.data!.docs[index].reference.id;
+                                                _store.verifyClinicReservation(docId);
+                                              },
+                                            ),
+                                            RaisedButton(
+                                              color: Colors.red,
+                                              child: Center(
+                                                child: Text("No"),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
                                     },
                                   ),
                                 ),
