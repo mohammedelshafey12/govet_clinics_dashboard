@@ -1,8 +1,4 @@
-import 'dart:html';
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,8 +8,6 @@ import 'package:govet_clinics_dashboard/Screens/Auth/log_in_screen.dart';
 import 'package:govet_clinics_dashboard/Services/auth.dart';
 import 'package:govet_clinics_dashboard/Services/store.dart';
 import 'package:govet_clinics_dashboard/Widgets/sign_up_custom_text_form_field.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +17,6 @@ import '../../constants.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
-
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
@@ -129,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       controller: clinicPasswordController,
                                       obscureText: visibleText,
                                       keyboardType:
-                                          TextInputType.visiblePassword,
+                                      TextInputType.visiblePassword,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Password Required';
@@ -140,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         hintText: 'Password ...',
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                         ),
                                         prefixIcon: Icon(Icons.lock),
                                         suffixIcon: IconButton(
@@ -226,7 +219,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     InkWell(
                                       onTap: () async {
                                         LocationPermission permission =
-                                            await Geolocator.checkPermission();
+                                        await Geolocator.checkPermission();
                                         if (permission ==
                                             LocationPermission.denied) {
                                           permission = await Geolocator
@@ -267,10 +260,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           hintText:
-                                              'Click to Pic your Location',
+                                          'Click to Pic your Location',
                                           border: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
+                                            BorderRadius.circular(10.0),
                                           ),
                                         ),
                                       ),
@@ -294,16 +287,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           width: width * 0.5,
                           height: 50.0,
                           child: MaterialButton(
-                            height: 50.0,
-                            child: Text(
-                              'Sign In',
-                              style: TextStyle(
-                                fontSize: 18,
-                                letterSpacing: 0.5,
-                                color: Colors.white,
+                              height: 50.0,
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: 0.5,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            onPressed: () async {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
                                   final modelHud = Provider.of<ModelHud>(
                                     context,
@@ -312,13 +305,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   modelHud.isProgressLoading(true);
                                   try {
                                     final authResult =
-                                        await _auth.signUpWithEmailAndPassword(
+                                    await _auth.signUpWithEmailAndPassword(
                                       clinicEmailController.text,
                                       clinicPasswordController.text,
                                       context,
                                     );
                                     User? userAuth =
-                                        FirebaseAuth.instance.currentUser!;
+                                    FirebaseAuth.instance.currentUser!;
                                     _store.addClinic(
                                       ClinicModel(
                                         clinicId: userAuth.uid,
@@ -327,11 +320,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         clinicPhone: clinicPhoneController.text,
                                         clinicType: clinicTypeController.text,
                                         clinicAbout: clinicAboutController.text,
-                                        clinicExperience:
-                                        clinicExperienceController.text,
+                                        clinicExperience: clinicExperienceController.text,
                                         clinicLocation: location??null,
                                         clinicPrice: clinicPriceController.text,
                                         clinicImageUrl: null,
+                                        clinicIsVerify: false,
                                       ),
                                     );
                                     modelHud.isProgressLoading(false);

@@ -29,11 +29,11 @@ class CustomDrawerHeader extends StatelessWidget {
                 child: clinicImageUrl == null
                     ? Icon(
                   Icons.person,
-                  size: width * 0.2,
+                  size: height * 0.2,
                   color: Colors.black,
                 )
                     : Container(
-                  width: width * 0.1,
+                  width: height * 0.1,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
                     child: Image.network(

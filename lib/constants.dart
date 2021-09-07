@@ -48,6 +48,7 @@ class Constants {
   static const String clinicRating = 'ClinicRating';
   static const String clinicLocation = 'ClinicLocation';
   static const String clinicImageUrl = 'ClinicImageUrl';
+  static const String clinicIsVerify = 'ClinicIsVerify';
 
   /// Firebase Constants Clinic Reservation
   static const String clinicReservationDate = 'ClinicReservationDate';

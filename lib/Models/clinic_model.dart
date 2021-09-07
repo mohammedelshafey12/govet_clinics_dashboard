@@ -11,6 +11,7 @@ class ClinicModel {
   final String? clinicExperience;
   final GeoPoint? clinicLocation;
   final String? clinicImageUrl;
+  final bool? clinicIsVerify;
 
   ClinicModel({
     required this.clinicId,
@@ -23,5 +24,6 @@ class ClinicModel {
     required this.clinicExperience,
     required this.clinicLocation,
     required this.clinicImageUrl,
+    required this.clinicIsVerify,
   });
 }

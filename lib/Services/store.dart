@@ -23,6 +23,7 @@ class Store {
       Constants.clinicLocation: clinic.clinicLocation,
       Constants.clinicExperience: clinic.clinicExperience,
       Constants.clinicImageUrl: clinic.clinicImageUrl,
+      Constants.clinicIsVerify: clinic.clinicIsVerify,
     });
   }
 
