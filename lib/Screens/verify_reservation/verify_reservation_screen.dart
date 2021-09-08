@@ -90,7 +90,7 @@ class _VerifyReservationScreenState extends State<VerifyReservationScreen> {
                             Row(
                               children: [
                                 SizedBox(
-                                  width: width * 0.05,
+                                  width: width * 0.02,
                                 ),
                                 Expanded(
                                   child: Column(
@@ -151,80 +151,56 @@ class _VerifyReservationScreenState extends State<VerifyReservationScreen> {
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: width * 0.05,
-                                ),
-                                Expanded(
-                                  child: RaisedButton(
-                                    color: Colors.green,
-                                    child: Center(
-                                      child: Text(
-                                        "Accept Request",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'custom_font',
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (context) => AlertDialog(
-                                          content: Text("Are you sure to approve?"),
-                                          actions: [
-                                            RaisedButton(
-                                              color: Colors.green,
-                                              child: Center(
-                                                child: Text("Yes"),
-                                              ),
-                                              onPressed: () {
-                                                var docId= snapshot.data!.docs[index].reference.id;
-                                                _store.verifyClinicReservation(docId);
-                                              },
-                                            ),
-                                            RaisedButton(
-                                              color: Colors.red,
-                                              child: Center(
-                                                child: Text("No"),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
                                 SizedBox(
                                   width: width * 0.02,
                                 ),
-                                Expanded(
-                                  child: RaisedButton(
-                                    color: Colors.red,
-                                    child: Center(
-                                      child: Text(
-                                        "Cancel Request",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'custom_font',
-                                        ),
+                                RaisedButton(
+                                  color: Colors.green,
+                                  child: Center(
+                                    child: Text(
+                                      "Accept Request",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'custom_font',
                                       ),
                                     ),
-                                    onPressed: () {
-                                      // Navigator.pop(context);
-                                    },
                                   ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) => AlertDialog(
+                                        content: Text("Are you sure to approve?"),
+                                        actions: [
+                                          RaisedButton(
+                                            color: Colors.green,
+                                            child: Center(
+                                              child: Text("Yes"),
+                                            ),
+                                            onPressed: () {
+                                              var docId= snapshot.data!.docs[index].reference.id;
+                                              _store.verifyClinicReservation(docId);
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.01,
+                                          ),
+                                          RaisedButton(
+                                            color: Colors.red,
+                                            child: Center(
+                                              child: Text("No"),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  width: width * 0.02,
                                 ),
                               ],
                             ),

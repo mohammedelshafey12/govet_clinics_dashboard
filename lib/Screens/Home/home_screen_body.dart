@@ -19,19 +19,19 @@ class HomeScreenBody extends StatelessWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                child: InkWell(
-                  onTap: () {
-                    Constants.navigatorPush(
-                      context: context,
-                      screen: VerifyReservationScreen(),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Card(
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                child: Card(
+                  elevation: 3.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      Constants.navigatorPush(
+                        context: context,
+                        screen: VerifyReservationScreen(),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -59,19 +59,19 @@ class HomeScreenBody extends StatelessWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                child: InkWell(
-                  onTap: () {
-                    Constants.navigatorPush(
-                      context: context,
-                      screen: OldReservationScreen(),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Card(
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                child: Card(
+                  elevation: 3.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      Constants.navigatorPush(
+                        context: context,
+                        screen: OldReservationScreen(),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

@@ -19,6 +19,7 @@ class CustomDrawerHeader extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return DrawerHeader(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             children: [
@@ -29,7 +30,7 @@ class CustomDrawerHeader extends StatelessWidget {
                 child: clinicImageUrl == null
                     ? Icon(
                   Icons.person,
-                  size: height * 0.2,
+                  size: height * 0.1,
                   color: Colors.black,
                 )
                     : Container(
@@ -44,7 +45,7 @@ class CustomDrawerHeader extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: width * 0.04,
+                width: height * 0.04,
               ),
               Expanded(
                 child: Column(

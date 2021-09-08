@@ -33,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController clinicPasswordController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
-
+  String locationHint = 'Click to Pic your Location';
   bool visibleText = true;
   Auth _auth = Auth();
   Store _store = Store();
@@ -253,6 +253,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           location = GeoPoint(
                                               location2.latitude,
                                               location2.longitude);
+                                          locationHint = 'Location= ${location2.latitude} ${location2.longitude}';
                                         });
                                       },
                                       child: TextFormField(
@@ -260,7 +261,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           hintText:
-                                          'Click to Pic your Location',
+                                          locationHint,
                                           border: OutlineInputBorder(
                                             borderRadius:
                                             BorderRadius.circular(10.0),
