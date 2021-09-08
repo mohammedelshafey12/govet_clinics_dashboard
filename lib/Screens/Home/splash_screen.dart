@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:govet_clinics_dashboard/Screens/Auth/log_in_screen.dart';
-import 'package:govet_clinics_dashboard/Screens/Home/home_screen.dart';
+import 'package:govet_clinics_dashboard/Screens/Home/waiting_verify_account_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
               if (userAuth == null) {
                 return LogInScreen();
               } else {
-                return HomeScreen();
+                return WaitingVerifyAccountScreen();
               }
             },
           ),

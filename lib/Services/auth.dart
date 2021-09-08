@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:govet_clinics_dashboard/Screens/Home/home_screen.dart';
+import 'package:govet_clinics_dashboard/Screens/Home/waiting_verify_account_screen.dart';
 
 class Auth {
   final _auth = FirebaseAuth.instance;
@@ -13,7 +14,7 @@ class Auth {
           email: email,
           password: password
       );
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WaitingVerifyAccountScreen()));
       return userCredential;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -42,7 +43,7 @@ class Auth {
           email: email,
           password: password
       );
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WaitingVerifyAccountScreen()));
       return null;
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
