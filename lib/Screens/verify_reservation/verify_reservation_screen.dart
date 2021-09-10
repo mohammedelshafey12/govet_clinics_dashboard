@@ -179,7 +179,7 @@ class _VerifyReservationScreenState extends State<VerifyReservationScreen> {
                                             ),
                                             onPressed: () {
                                               var docId= snapshot.data!.docs[index].reference.id;
-                                              _store.verifyClinicReservation(docId);
+                                              _store.verifyClinicReservation(context,   docId);
                                             },
                                           ),
                                           SizedBox(

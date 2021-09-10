@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:govet_clinics_dashboard/Models/clinic_model.dart';
-import 'package:govet_clinics_dashboard/Screens/Home/home_screen.dart';
 
 import '../constants.dart';
 
@@ -27,11 +25,41 @@ class Store {
     });
   }
 
-  verifyClinicReservation(docId) {
+  verifyClinicReservation(context, docId) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Container(
+          child: Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Loading ...'),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
     fireStore.collection(Constants.clinicReservationCollection).doc(docId).update({
       Constants.clinicReservationVerify: true,
     }).whenComplete(() {
-      print ('Done');
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Clinic Reservation added successfully",
+            style: TextStyle(
+              fontFamily: 'custom_Font',
+            ),
+          ),
+        ),
+      );
     });
   }
 }
