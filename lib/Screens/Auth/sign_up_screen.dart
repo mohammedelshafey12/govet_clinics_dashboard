@@ -17,6 +17,7 @@ import '../../constants.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
+
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
@@ -25,11 +26,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController clinicNameController = TextEditingController();
   TextEditingController clinicEmailController = TextEditingController();
   TextEditingController clinicPhoneController = TextEditingController();
-  TextEditingController clinicTypeController = TextEditingController();
+  TextEditingController clinicServicesController = TextEditingController();
   TextEditingController clinicAboutController = TextEditingController();
-  TextEditingController clinicExperienceController = TextEditingController();
+  TextEditingController clinicRateController = TextEditingController();
   TextEditingController clinicLocationController = TextEditingController();
-  TextEditingController clinicPriceController = TextEditingController();
+  TextEditingController clinicOldPriceController = TextEditingController();
+  TextEditingController clinicNewPriceController = TextEditingController();
+  TextEditingController clinicWorksHoursFromController =
+  TextEditingController();
+  TextEditingController clinicWorksHoursToController = TextEditingController();
   TextEditingController clinicPasswordController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -38,12 +43,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Auth _auth = Auth();
   Store _store = Store();
   GeoPoint? location;
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return ModalProgressHUD(
-      inAsyncCall: Provider.of<ModelHud>(context).isLoading1,
+      inAsyncCall: Provider
+          .of<ModelHud>(context)
+          .isLoading1,
       child: Scaffold(
         body: Center(
           child: Container(
@@ -185,17 +199,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       height: height * 0.05,
                                     ),
                                     SignUpCustomTextFormField(
-                                      title: 'Clinic Type',
-                                      controller: clinicTypeController,
+                                      title: 'Clinic Services',
+                                      controller: clinicServicesController,
                                       keyboardType: TextInputType.text,
                                     ),
                                     SizedBox(
                                       height: height * 0.02,
                                     ),
-                                    SignUpCustomTextFormField(
-                                      title: 'Clinic Price',
-                                      controller: clinicPriceController,
-                                      keyboardType: TextInputType.number,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: SignUpCustomTextFormField(
+                                            title: 'Clinic Old Price',
+                                            controller:
+                                            clinicOldPriceController,
+                                            keyboardType: TextInputType.number,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: height * 0.02,
+                                        ),
+                                        Expanded(
+                                          child: SignUpCustomTextFormField(
+                                            title: 'Clinic New Price',
+                                            controller:
+                                            clinicNewPriceController,
+                                            keyboardType: TextInputType.number,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: height * 0.02,
@@ -203,15 +235,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     SignUpCustomTextFormField(
                                       title: 'Clinic About',
                                       controller: clinicAboutController,
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: TextInputType.text,
                                     ),
                                     SizedBox(
                                       height: height * 0.02,
                                     ),
                                     SignUpCustomTextFormField(
-                                      title: 'Clinic Experience',
-                                      controller: clinicExperienceController,
-                                      keyboardType: TextInputType.text,
+                                      title: 'Clinic Rate',
+                                      controller: clinicRateController,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: SignUpCustomTextFormField(
+                                            title: 'Works From',
+                                            controller:
+                                            clinicWorksHoursFromController,
+                                            keyboardType: TextInputType.number,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: height * 0.02,
+                                        ),
+                                        Expanded(
+                                          child: SignUpCustomTextFormField(
+                                            title: 'Works To',
+                                            controller:
+                                            clinicWorksHoursToController,
+                                            keyboardType: TextInputType.number,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: height * 0.02,
@@ -224,13 +282,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             LocationPermission.denied) {
                                           permission = await Geolocator
                                               .requestPermission();
-                                          if (permission ==
-                                              LocationPermission.denied) {
-                                            // Permissions are denied, next time you could try
-                                            // requesting permissions again (this is also where
-                                            // Android's shouldShowRequestPermissionRationale
-                                            // returned true. According to Android guidelines
-                                            // your App should show an explanatory UI now.
+                                          if (permission == LocationPermission.denied) {
                                             return Future.error(
                                                 'Location permissions are denied');
                                           }
@@ -242,26 +294,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           return Future.error(
                                               'Location permissions are permanently denied, we cannot request permissions.');
                                         }
-
-                                        // When we reach here, permissions are granted and we can
-                                        // continue accessing the position of the device.
                                         var location2 = await Geolocator
                                             .getCurrentPosition();
-                                        print(location2.longitude);
-                                        print(location2.latitude);
-                                        setState(() {
-                                          location = GeoPoint(
+                                        setState(
+                                              () {
+                                            location = GeoPoint(
                                               location2.latitude,
-                                              location2.longitude);
-                                          locationHint = 'Location= ${location2.latitude} ${location2.longitude}';
-                                        });
+                                              location2.longitude,
+                                            );
+                                            locationHint =
+                                            'Location= ${location2
+                                                .latitude} ${location2
+                                                .longitude}';
+                                          },
+                                        );
                                       },
                                       child: TextFormField(
                                         enabled: false,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
-                                          hintText:
-                                          locationHint,
+                                          hintText: locationHint,
                                           border: OutlineInputBorder(
                                             borderRadius:
                                             BorderRadius.circular(10.0),
@@ -290,7 +342,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: MaterialButton(
                               height: 50.0,
                               child: Text(
-                                'Sign In',
+                                'Sign Up',
                                 style: TextStyle(
                                   fontSize: 18,
                                   letterSpacing: 0.5,
@@ -319,11 +371,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         clinicEmail: userAuth.email,
                                         clinicName: clinicNameController.text,
                                         clinicPhone: clinicPhoneController.text,
-                                        clinicType: clinicTypeController.text,
+                                        clinicServices:
+                                        clinicServicesController.text,
                                         clinicAbout: clinicAboutController.text,
-                                        clinicExperience: clinicExperienceController.text,
-                                        clinicLocation: location??null,
-                                        clinicPrice: clinicPriceController.text,
+                                        clinicRate: clinicRateController.text,
+                                        clinicLocation: location ?? null,
+                                        clinicOldPrice:
+                                        clinicOldPriceController.text,
+                                        clinicNewPrice:
+                                        clinicNewPriceController.text,
+                                        clinicWorksHoursFrom:
+                                        clinicWorksHoursFromController.text,
+                                        clinicWorksHoursTo:
+                                        clinicWorksHoursToController.text,
                                         clinicImageUrl: null,
                                         clinicIsVerify: false,
                                       ),
@@ -342,8 +402,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     modelHud.isProgressLoading(false);
                                   }
                                 }
-                              }
-                          ),
+                              }),
                         ),
                         SizedBox(
                           height: height * 0.01,

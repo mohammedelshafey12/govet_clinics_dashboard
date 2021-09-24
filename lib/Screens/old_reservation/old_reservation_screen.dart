@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:govet_clinics_dashboard/Screens/verify_reservation/user_pets_screen.dart';
 import 'package:govet_clinics_dashboard/Widgets/loading_page.dart';
 
 import '../../constants.dart';
@@ -89,31 +90,53 @@ class _OldReservationScreenState extends State<OldReservationScreen> {
                                 width: width * 0.05,
                               ),
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Name: ${clinicReservationData[Constants.userName]}',
-                                      style: TextStyle(
-                                        fontFamily: 'custom_font',
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Constants.primary_blue_color,
+                                child: InkWell(
+                                  onTap: (){
+                                    Constants.navigatorPush(
+                                      context: context,
+                                      screen: UserPetsScreen(
+                                        clinicReservationData: clinicReservationData,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.01,
-                                    ),
-                                    Text(
-                                      'Date: ${clinicReservationData[Constants.clinicReservationDate]}',
-                                      style: TextStyle(
-                                        fontFamily: 'custom_font',
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Constants.primary_blue_color,
+                                    );
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Name: ${clinicReservationData[Constants.userName]}',
+                                        style: TextStyle(
+                                          fontFamily: 'custom_font',
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.primary_blue_color,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: height * 0.01,
+                                      ),
+                                      Text(
+                                        'Email: ${clinicReservationData[Constants.userEmail]}',
+                                        style: TextStyle(
+                                          fontFamily: 'custom_font',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.primary_blue_color,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.01,
+                                      ),
+                                      Text(
+                                        'Phone: ${clinicReservationData[Constants.userPhone]}',
+                                        style: TextStyle(
+                                          fontFamily: 'custom_font',
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.primary_blue_color,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -124,7 +147,7 @@ class _OldReservationScreenState extends State<OldReservationScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Email: ${clinicReservationData[Constants.userEmail]}',
+                                      'Date: ${clinicReservationData[Constants.clinicReservationDate]}',
                                       style: TextStyle(
                                         fontFamily: 'custom_font',
                                         fontSize: 20.0,
@@ -136,7 +159,19 @@ class _OldReservationScreenState extends State<OldReservationScreen> {
                                       height: height * 0.01,
                                     ),
                                     Text(
-                                      'Phone: ${clinicReservationData[Constants.userPhone]}',
+                                      'Time From: ${clinicReservationData[Constants.clinicReservationTimeFrom]}',
+                                      style: TextStyle(
+                                        fontFamily: 'custom_font',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.01,
+                                    ),
+                                    Text(
+                                      'Time To: ${clinicReservationData[Constants.clinicReservationTimeTo]}',
                                       style: TextStyle(
                                         fontFamily: 'custom_font',
                                         fontSize: 18.0,

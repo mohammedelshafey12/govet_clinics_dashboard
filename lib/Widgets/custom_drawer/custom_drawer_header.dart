@@ -7,10 +7,10 @@ class CustomDrawerHeader extends StatelessWidget {
     Key? key,
     required this.clinicName,
     required this.clinicImageUrl,
-    required this.clinicType,
+    required this.clinicPhone,
   });
   final clinicName;
-  final clinicType;
+  final clinicPhone;
   final clinicImageUrl;
 
   @override
@@ -62,7 +62,7 @@ class CustomDrawerHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$clinicType',
+                      '$clinicPhone',
                       style: TextStyle(
                         fontFamily: 'custom_font',
                         color: Colors.grey,

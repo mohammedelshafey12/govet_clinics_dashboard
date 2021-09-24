@@ -40,19 +40,25 @@ class Constants {
   static const String clinicId = 'ClinicId';
   static const String clinicName = 'ClinicName';
   static const String clinicEmail = 'ClinicEmail';
-  static const String clinicType = 'ClinicType';
+  static const String clinicServices = 'ClinicServices';
   static const String clinicAbout = 'ClinicAbout';
+  static const String clinicWorksHoursFrom = 'ClinicWorksHoursFrom';
+  static const String clinicWorksHoursTo = 'ClinicWorksHoursTo';
   static const String clinicPhone = 'ClinicPhone';
-  static const String clinicPrice = 'ClinicPrice';
-  static const String clinicExperience = 'ClinicExperience';
+  static const String clinicNewPrice = 'ClinicNewPrice';
+  static const String clinicOldPrice = 'ClinicOldPrice';
+  static const String clinicRate = 'ClinicRate';
   static const String clinicRating = 'ClinicRating';
   static const String clinicLocation = 'ClinicLocation';
   static const String clinicImageUrl = 'ClinicImageUrl';
   static const String clinicIsVerify = 'ClinicIsVerify';
 
+
   /// Firebase Constants Clinic Reservation
   static const String clinicReservationDate = 'ClinicReservationDate';
   static const String clinicReservationVerify = 'ClinicReservationVerify';
+  static const String clinicReservationTimeFrom = 'ClinicReservationTimeFrom';
+  static const String clinicReservationTimeTo = 'ClinicReservationTimeTo';
 
   /// constants app colors
   static const Color primary_blue_color = Color(0xfff25265E);

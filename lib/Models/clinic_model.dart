@@ -5,10 +5,13 @@ class ClinicModel {
   final String? clinicName;
   final String? clinicEmail;
   final String? clinicPhone;
-  final String? clinicType;
-  final String? clinicPrice;
+  final String? clinicServices;
+  final String? clinicOldPrice;
+  final String? clinicNewPrice;
+  final String? clinicWorksHoursFrom;
+  final String? clinicWorksHoursTo;
   final String? clinicAbout;
-  final String? clinicExperience;
+  final String? clinicRate;
   final GeoPoint? clinicLocation;
   final String? clinicImageUrl;
   final bool? clinicIsVerify;
@@ -18,10 +21,13 @@ class ClinicModel {
     required this.clinicName,
     required this.clinicEmail,
     required this.clinicPhone,
-    required this.clinicType,
-    required this.clinicPrice,
+    required this.clinicServices,
+    required this.clinicOldPrice,
+    required this.clinicNewPrice,
+    required this.clinicWorksHoursFrom,
+    required this.clinicWorksHoursTo,
     required this.clinicAbout,
-    required this.clinicExperience,
+    required this.clinicRate,
     required this.clinicLocation,
     required this.clinicImageUrl,
     required this.clinicIsVerify,

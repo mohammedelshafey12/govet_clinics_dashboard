@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 CustomDrawerHeader(
                   clinicName: clinicData[Constants.clinicName],
-                  clinicType: clinicData[Constants.clinicType],
+                  clinicPhone: clinicData[Constants.clinicPhone],
                   clinicImageUrl: clinicData[Constants.clinicImageUrl],
                 ),
                 CustomDrawerItem(

@@ -158,7 +158,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
                       ),
                       ClinicProfileCardItem(
                         title: 'ClinicType',
-                        subTitle: clinicData[Constants.clinicType],
+                        subTitle: clinicData[Constants.clinicServices],
                       ),
                       ClinicProfileCardItem(
                         title: 'ClinicLocation',
@@ -166,7 +166,7 @@ class _ClinicProfileScreenState extends State<ClinicProfileScreen> {
                       ),
                       ClinicProfileCardItem(
                         title: 'ClinicPrice',
-                        subTitle: clinicData[Constants.clinicPrice],
+                        subTitle: clinicData[Constants.clinicOldPrice],
                       ),
                     ],
                   );
